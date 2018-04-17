@@ -16,6 +16,7 @@
     Connectez vous ! :D
 </p>
 
+<%= flash[:info] %>
 <%= form_tag "/pages/login", method: :post do %>
     <input type="text" name="email" placeholder="votre email">
     <input type="password" name="password" placeholder="votre mot de passe">

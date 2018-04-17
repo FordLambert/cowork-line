@@ -26,9 +26,15 @@ class PagesController < ApplicationController
         user.password = params[:password]
         user.phone_number = params[:phone_number]
         user.biography = params[:biography]
-        user.save
-        session[:user_id] = user.id
-        redirect_to '/pages/show'
+        user.is_verified = false
+        
+        if user.save
+            session[:user_id] = user.id
+            redirect_to '/pages/show'
+        else
+            flash[:info] = user.errors.first
+            redirect_to "/pages/create"
+        end
     end
 
     def login
@@ -38,7 +44,7 @@ class PagesController < ApplicationController
             flash[:info] = "Content de vous voir #{@current_user.first_name} !"
             redirect_to "/pages/show"
         else
-            flash[:info] = "Erreur de connection mon brave."
+            flash[:info] = "Erreur d'adresse email ou de mot de passe"
             redirect_to root_path
         end
     end

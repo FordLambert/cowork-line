@@ -1,3 +1,12 @@
-<h1>Bienvenue "utilisateur"</h1>
+<% if !@current_user %>
+    <h1>Oups, on dirait que vous n'êtes pas connecté</h1>
 
-<p>Vous êtes suuuuuper loin dans la liste ! dear gooood !</p>
+<% else %>
+    <h1>Bienvenue <%= @current_user.first_name %> :)</h1>
+
+    <p>Vous êtes suuuuuper loin dans la liste ! dear gooood !</p>
+
+    <p>
+        <%= link_to "Se deconnecter", "/pages/disconnect" %>
+    </p>
+<% end %>

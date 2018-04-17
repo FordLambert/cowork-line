@@ -9,10 +9,15 @@
     nouveau demandeur de s'inscrire sur notre liste d'attente
 </p>
 
-<button>C'est par ici !</button>
+<%= link_to "C'est par ici !", "/pages/create" %>
 
 <p>
     Vous êtes déja inscris ?
+    Connectez vous ! :D
 </p>
 
-<button>Voyons ou vous en êtes !</button>
+<%= form_tag "/pages/login", method: :post do %>
+    <input type="text" name="email" placeholder="votre email">
+    <input type="password" name="password" placeholder="votre mot de passe">
+    <input type="submit" value="Se connecter">
+<% end %>

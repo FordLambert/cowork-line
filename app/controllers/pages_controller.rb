@@ -2,8 +2,13 @@ class PagesController < ApplicationController
 
     def home
         if session[:user_id]
-            #session[:user_id] = nil
             redirect_to '/pages/show'
+        end
+    end
+
+    def create
+        if session[:user_id]
+            @current_user = User.find(session[:user_id])
         end
     end
 

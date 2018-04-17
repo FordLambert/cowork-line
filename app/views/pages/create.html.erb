@@ -1,23 +1,29 @@
-<h1>Liste d'attente de Cowork</h1>
-<p>
-    Bienvenue sur la liste d'attente de Cowork, si vous souhaitez pouvoir louer un espace de travail, merci de remplir le formulaire ci-dessous.
-    Nous sommes désolés de ne pas pouvoir vous en fournir un directement, malheureusement le grand nombre de demandes nous force à mettre en place cette simple règle: "premier arrivé, premier servi"
-    <br/>
-    Une fois votre inscription faite <strong>et votre email validé</strong>, vous pourrez consulter votre position dans la liste ici.
-    De manière à être sur que la liste est toujours à jour, un email vous sera envoyé au bout d'un certain temps pour vérifier que vous êtes toujours interéssé.
-    <br/>
-    Toujours partants ? Inscrivez vous ci-dessous et en route !
-</p>
+<% if @current_user %>
+    <p>Vous êtes déja connectés en tant que <%= @current_user.first_name %></p>
+    <p>Ce n'est pas vous ? <%= link_to "Se deconnecter", "/pages/disconnect" %></p>
+<% else %>
+    <h1>Liste d'attente de Cowork</h1>
+    <p>
+        Bienvenue sur la liste d'attente de Cowork, si vous souhaitez pouvoir louer un espace de travail, merci de remplir le formulaire ci-dessous.
+        Nous sommes désolés de ne pas pouvoir vous en fournir un directement, malheureusement le grand nombre de demandes nous force à mettre en place cette simple règle: "premier arrivé, premier servi"
+        <br/>
+        Une fois votre inscription faite <strong>et votre email validé</strong>, vous pourrez consulter votre position dans la liste ici.
+        De manière à être sur que la liste est toujours à jour, un email vous sera envoyé au bout d'un certain temps pour vérifier que vous êtes toujours interéssé.
+        <br/>
+        Toujours partants ? Inscrivez vous ci-dessous et en route !
+    </p>
 
-<%= form_tag "/pages/create", method: :post do %>
-    <input type="text" name="first_name" placeholder="votre prénom">
-    <input type="text" name="last_name" placeholder="votre nom">
-    <input type="email" name="email" placeholder="votre adresse email">
+    <%= form_tag "/pages/create", method: :post do %>
+        <input type="text" name="first_name" placeholder="votre prénom">
+        <input type="text" name="last_name" placeholder="votre nom">
+        <input type="email" name="email" placeholder="votre adresse email">
 
-    <input type="password" name="password" placeholder="votre mot de passe"><!-- TODO: add double check for email -->
+        <input type="password" name="password" placeholder="votre mot de passe"><!-- TODO: add double check for email -->
 
-    <input type="text" name="phone_number" placeholder="Numéro de téléphone">
-    <textarea rows="5" name="biography" placeholder="Qui êtes vous en bref ?"></textarea>
+        <input type="text" name="phone_number" placeholder="Numéro de téléphone">
+        <textarea rows="5" name="biography" placeholder="Qui êtes vous en bref ?"></textarea>
 
-    <input type="submit" value="Créer le compte">
+        <input type="submit" value="Créer le compte">
+    <% end %>
+
 <% end %>

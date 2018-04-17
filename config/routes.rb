@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  get 'pages/home'
+
+    root 'pages#home'
+
+    get 'pages/create' => 'pages#create'
+    get 'pages/:id'  => 'pages#show'
+
+    post 'pages/create' => ''
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -23,7 +23,12 @@
                 Un email vous à été envoyé, merci de cliquer sur le lien présent dans celui-ci pour finaliser votre inscription.
                 Tant que votre email n'a pas été validé <span class="warning">vous n'êtes pas pris en compte dans la liste d'attente.</span>
             </p>
-            <p><span class="user-number"><%= @users_number.length %></span> personnes sont actuellement dans la liste d'attente</p>
+            <p>
+                <span class="user-number">
+                    <%= @users_number.length %>    
+                </span>
+                 personne<%= (@plural) ? ("s sont") : (" est") %> actuellement dans la liste d'attente
+            </p>
         <% end %>
 
         <p>

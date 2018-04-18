@@ -3,6 +3,12 @@ class PagesController < ApplicationController
     def home
         @users_number = User.where(is_verified: true)
 
+        if @users_number.length > 1
+            @plural = true
+        else
+            @plural = false
+        end
+
         if session[:user_id]
             redirect_to '/pages/show'
         end
@@ -10,6 +16,13 @@ class PagesController < ApplicationController
 
     def show
         @users_number = User.where(is_verified: true)
+
+        if @users_number.length > 1
+            @plural = true
+        else
+            @plural = false
+        end
+
 
         if session[:user_id]
             @current_user = User.find(session[:user_id])

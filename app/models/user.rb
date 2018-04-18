@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
     validates_presence_of   :last_name, :message => 'Merci d\'entrer votre nom.'
     validates_presence_of   :email, :message => 'Merci d\'entrer un email.'
     validates_presence_of   :password, :message => 'Merci de renseigner un mot de passe.'
+    validates_presence_of   :password, :message => 'Veuillez entrer à nouveau votre mot de passe.'
     validates_presence_of   :phone_number, :message => 'Merci d\'entrer un numéro de téléphone.'
     validates_presence_of   :biography, :message => 'Merci d\'entrer une brève biographie.'
 

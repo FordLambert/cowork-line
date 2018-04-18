@@ -23,38 +23,51 @@
         <%= form_tag "/pages/create", method: :post do %>
             <div class="input-box">
                 <input type="text" name="first_name" placeholder="votre prénom" value=<%= params[:first_name] %>>
-                <span class="form-error"><%= @user.errors[:first_name].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:first_name].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box">
                 <input type="text" name="last_name" placeholder="votre nom" value=<%= params[:last_name] %>>
-                <span class="form-error"><%= @user.errors[:last_name].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:last_name].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box">
                 <input type="email" name="email" placeholder="votre adresse email" value=<%= params[:email] %>>
-                <span class="form-error"><%= @user.errors[:email].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:email].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box">
                 <input type="password" name="password" placeholder="votre mot de passe" value=<%= params[:password] %>>
-                <span class="form-error"><%= @user.errors[:password].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:password].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box">
                 <input type="password" name="password_confirm" placeholder="confirmez le mot de passe" value=<%= params[:password_confirm] %>>
-                <span class="form-error"><%= @user.errors[:password_confirm].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:password_confirm].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box">
                 <input type="text" name="phone_number" placeholder="Numéro de téléphone" value=<%= params[:phone_number] %>>
-                <span class="form-error"><%= @user.errors[:phone_number].first %></span>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:phone_number].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box textarea-box">
-                <textarea rows="7" name="biography" placeholder="Qui êtes vous en bref ?" value=<%= params[:biography] %>>
-                </textarea>
-                <span class="form-error"><%= @user.errors[:biography].first %></span>
+                <textarea rows="7" name="biography" placeholder="Qui êtes vous en bref ?" value=<%= params[:biography] %>></textarea>
+                <span class="form-error">
+                    <%= (@user) ? (@user.errors[:biography].first) : ("") %>
+                </span>
             </div>
 
             <div class="input-box button-box">

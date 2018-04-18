@@ -32,6 +32,12 @@ class PagesController < ApplicationController
     end
 
     def create
+        if @user
+            @user.errors.clear
+        end
+    end
+
+    def add_user
         @user = User.new
         @user.first_name = params[:first_name]
         @user.last_name = params[:last_name]

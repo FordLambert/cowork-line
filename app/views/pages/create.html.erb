@@ -1,38 +1,64 @@
 <% if @current_user %>
     <p>Vous êtes déja connectés en tant que <%= @current_user.first_name %></p>
     <p>Ce n'est pas vous ? <%= link_to "Se deconnecter", "/pages/disconnect" %></p>
+
 <% else %>
-    <h1>Liste d'attente de Cowork</h1>
-    <p>
-        Bienvenue sur la liste d'attente de Cowork, si vous souhaitez pouvoir louer un espace de travail, merci de remplir le formulaire ci-dessous.
-        Nous sommes désolés de ne pas pouvoir vous en fournir un directement, malheureusement le grand nombre de demandes nous force à mettre en place cette simple règle: "premier arrivé, premier servi"
-        <br/>
-        Une fois votre inscription faite <strong>et votre email validé</strong>, vous pourrez consulter votre position dans la liste ici.
-        De manière à être sur que la liste est toujours à jour, un email vous sera envoyé au bout d'un certain temps pour vérifier que vous êtes toujours interéssé.
-        <br/>
-        Toujours partants ? Inscrivez vous ci-dessous et en route !
-    </p>
+    <header>
+        <h1>Liste d'attente de Cowork</h1>
+    </header>
 
-    <%= form_tag "/pages/create", method: :post do %>
-        <input type="text" name="first_name" placeholder="votre prénom">
-        <p><%= @user.errors[:first_name].first %></p>
+    <section class="inscription-section">
+        <p>
+            Bienvenue sur la liste d'attente de Cowork, si vous souhaitez pouvoir louer un espace de travail, merci de remplir le formulaire ci-dessous.
+            Nous sommes désolés de ne pas pouvoir vous en fournir un directement, malheureusement le grand nombre de demandes nous force à mettre en place cette simple règle: "premier arrivé, premier servi"
+            <br/>
+            Une fois votre inscription faite <strong>et votre email validé</strong>, vous pourrez consulter votre position dans la liste ici.
+            De manière à être sur que la liste est toujours à jour, un email vous sera envoyé au bout d'un certain temps pour vérifier que vous êtes toujours interéssé.
+            <br/>
+            Toujours partants ? Inscrivez vous ci-dessous et en route !
+        </p>
 
-        <input type="text" name="last_name" placeholder="votre nom">
-        <p><%= @user.errors[:last_name].first %></p>
+        <%= form_tag "/pages/create", method: :post do %>
+            <div class="input-box">
+                <input type="text" name="first_name" placeholder="votre prénom">
+                <span class="form-error"><%= @user.errors[:first_name].first %></span>
+            </div>
 
-        <input type="email" name="email" placeholder="votre adresse email">
-        <p><%= @user.errors[:email].first %></p>
+            <div class="input-box">
+                <input type="text" name="last_name" placeholder="votre nom">
+                <span class="form-error"><%= @user.errors[:last_name].first %></span>
+            </div>
 
-        <input type="password" name="password" placeholder="votre mot de passe">
-        <p><%= @user.errors[:password].first %></p>
+            <div class="input-box">
+                <input type="email" name="email" placeholder="votre adresse email">
+                <span class="form-error"><%= @user.errors[:email].first %></span>
+            </div>
 
-        <input type="text" name="phone_number" placeholder="Numéro de téléphone">
-        <p><%= @user.errors[:phone_number].first %></p>
+            <div class="input-box">
+                <input type="password" name="password" placeholder="votre mot de passe">
+                <span class="form-error"><%= @user.errors[:password].first %></span>
+            </div>
 
-        <textarea rows="5" name="biography" placeholder="Qui êtes vous en bref ?"></textarea>
-        <p><%= @user.errors[:biography].first %></p>
+            <div class="input-box">
+                <input type="password" name="password_confirm" placeholder="confirmez le mot de passe">
+                <span class="form-error"><%= @user.errors[:password_confirm].first %></span>
+            </div>
 
-        <input type="submit" value="Créer le compte">
-    <% end %>
+            <div class="input-box">
+                <input type="text" name="phone_number" placeholder="Numéro de téléphone">
+                <span class="form-error"><%= @user.errors[:phone_number].first %></span>
+            </div>
+
+            <div class="input-box textarea-box">
+                <textarea rows="7" name="biography" placeholder="Qui êtes vous en bref ?">
+                </textarea>
+                <span class="form-error"><%= @user.errors[:biography].first %></span>
+            </div>
+
+            <div class="input-box button-box">
+                <input type="submit" value="Créer le compte" class="submit-button">
+            </div>
+        <% end %>
+    </section>
 
 <% end %>

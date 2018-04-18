@@ -23,11 +23,13 @@ class PagesController < ApplicationController
             @plural = false
         end
 
-
         if session[:user_id]
             @current_user = User.find(session[:user_id])
-            sorted_users = @verified_users.sort_by &:validation_date
-            @position = sorted_users.find_index(@current_user) + 1
+
+            if @current_user.is_verified
+                sorted_users = @verified_users.sort_by &:validation_date
+                @position = sorted_users.find_index(@current_user) + 1
+            end
         end
     end
 
@@ -48,12 +50,38 @@ class PagesController < ApplicationController
         @user.is_verified = false
         
         if @user.save
-            #UserMailer.welcome_email(@user).deliver!
+            UserMailer.welcome_email(@user).deliver!
+
             session[:user_id] = @user.id
             redirect_to '/pages/show'
         else
             render 'create'
         end
+    end
+
+    def success
+        if session[:user_id]
+            @current_user = session[:user_id]
+        end
+    end
+
+    def confirm_email
+        user = User.find_by_confirm_token(params[:token])
+        if user
+            user.validate_email
+            user.save(validate: false)
+            redirect_to user
+        else
+            redirect_to root_url
+        end
+    end
+
+    def validate_user
+        user = User.find(params[:id])
+        user.is_verified = true
+        user.validation_date = Time.now
+        session[:user_id] = user.id
+        redirect_to "pages/success"
     end
 
     def login

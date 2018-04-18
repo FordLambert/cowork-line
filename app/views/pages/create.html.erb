@@ -43,14 +43,16 @@
             </div>
 
             <div class="input-box">
-                <input type="password" name="password" placeholder="votre mot de passe" value=<%= params[:password] %>>
+                <%= password_field_tag(:password) %>
+                <!--<input type="password" name="password" placeholder="votre mot de passe" value=<%= params[:password] %>>-->
                 <span class="form-error">
                     <%= (@user) ? (@user.errors[:password].first) : ("") %>
                 </span>
             </div>
 
             <div class="input-box">
-                <input type="password" name="password_confirm" placeholder="confirmez le mot de passe" value=<%= params[:password_confirm] %>>
+                <%= password_field_tag(:password_confirmation) %>
+                <!--<input type="password" name="password_confirm" placeholder="confirmez le mot de passe" value=<%= params[:password_confirm] %>>-->
                 <span class="form-error">
                     <%= (@user) ? (@user.errors[:password_confirm].first) : ("") %>
                 </span>

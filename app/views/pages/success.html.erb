@@ -1,0 +1,9 @@
+<% if @current_user %>
+    <div class="success-box">
+        <p>Merci <%= @current_user.first_name %>, votre compte est validé.</p>
+        <%= link_to "Rejoignez votre page", "/pages/show" %>
+    </div>
+
+<% else %>
+    <p>pas d'utilisateur trouvé</p>
+<% end %>

@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+
+    before_create :set_confirmation_token
+
     validates_presence_of   :first_name, :message => 'Merci d\'entrer votre prénom.'
     validates_presence_of   :last_name, :message => 'Merci d\'entrer votre nom.'
     validates_presence_of   :email, :message => 'Merci d\'entrer un email.'
@@ -10,5 +13,18 @@ class User < ActiveRecord::Base
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'
 
+    validates :password, confirmation: true
+
+    private
     
+    def validate_email
+        self.is_verified = true
+        self.confirm_token = nil
+    end
+
+    def set_confirmation_token
+        if self.confirm_token.blank?
+            self.confirm_token = SecureRandom.urlsafe_base64.to_s
+        end
+    end
 end

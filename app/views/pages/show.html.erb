@@ -9,12 +9,22 @@
 </header>
     <section class="profil-section">
 
-        <p>
-            Il y a actuellement 
-            <span class="user-number"><%= @users_number.length %></span>
-             utilisateurs dans la liste d'attente et vous êtes numéro 
-             <span class="user-number"><%= @users_before %></span>
-         </p>
+        <% if @current_user.is_verified %>
+            <p>
+                Il y a actuellement 
+                <span class="user-number"><%= @users_number.length %></span>
+                 utilisateurs dans la liste d'attente et vous êtes numéro 
+                 <span class="user-number"><%= @users_before %></span>
+             </p>
+        <% else %>
+            <p>
+                Attention, votre demande à été prise en compte mais votre inscription est en attente de validation.
+                <br/>
+                Un email vous à été envoyé, merci de cliquer sur le lien présent dans celui-ci pour finaliser votre inscription.
+                Tant que votre email n'a pas été validé <span class="warning">vous n'êtes pas pris en compte dans la liste d'attente.</span>
+            </p>
+            <p><span class="user-number"><%= @users_number.length %></span> personnes sont actuellement dans la liste d'attente</p>
+        <% end %>
 
         <p>
             <%= link_to "Se deconnecter", "/pages/disconnect" %>

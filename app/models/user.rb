@@ -15,6 +15,38 @@ class User < ActiveRecord::Base
 
     validates :password, confirmation: true
 
+    def accept!
+        self.accepted = true;
+    end
+
+    def self.unconfirmed 
+        User.where(is_verified: false).each do |user|
+            puts user.first_name + " " + user.last_name + ": " + user.email
+        end
+        puts 'Fin de la liste'
+    end
+
+    def self.confirmed
+        User.where(is_verified: false).each do |user|
+            puts user.first_name + " " + user.last_name + ": " + user.email
+        end
+        puts 'Fin de la liste'
+    end
+
+    def self.accepted
+        User.where(accepted: true).each do |user|
+            puts user.first_name + " " + user.last_name + ": " + user.email
+        end
+        puts 'Fin de la liste'
+    end
+
+    def self.expired
+        User.where(expired: true).each do |user|
+            puts user.first_name + " " + user.last_name + ": " + user.email
+        end
+        puts 'Fin de la liste'
+    end
+
     private
     
     def validate_email

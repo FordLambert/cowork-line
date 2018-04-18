@@ -1,9 +1,9 @@
 class PagesController < ApplicationController
 
     def home
-        @users_number = User.where(is_verified: true)
+        @verified_users = User.where(is_verified: true)
 
-        if @users_number.length > 1
+        if @verified_users.length > 1
             @plural = true
         else
             @plural = false
@@ -15,9 +15,9 @@ class PagesController < ApplicationController
     end
 
     def show
-        @users_number = User.where(is_verified: true)
+        @verified_users = User.where(is_verified: true)
 
-        if @users_number.length > 1
+        if @verified_users.length > 1
             @plural = true
         else
             @plural = false
@@ -26,6 +26,8 @@ class PagesController < ApplicationController
 
         if session[:user_id]
             @current_user = User.find(session[:user_id])
+            sorted_users = @verified_users.sort_by &:validation_date
+            @position = sorted_users.find_index(@current_user) + 1
         end
     end
 

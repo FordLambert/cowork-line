@@ -12,9 +12,9 @@
         <% if @current_user.is_verified %>
             <p>
                 Il y a actuellement 
-                <span class="user-number"><%= @users_number.length %></span>
+                <span class="user-number"><%= @verified_users.length %></span>
                  utilisateurs dans la liste d'attente et vous êtes numéro 
-                 <span class="user-number"><%= @users_before %></span>
+                 <span class="user-number"><%= @position %></span>
              </p>
         <% else %>
             <p>
@@ -25,7 +25,7 @@
             </p>
             <p>
                 <span class="user-number">
-                    <%= @users_number.length %>    
+                    <%= @verified_users.length %>    
                 </span>
                  personne<%= (@plural) ? ("s sont") : (" est") %> actuellement dans la liste d'attente
             </p>

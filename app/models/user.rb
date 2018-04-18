@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     
     def validate_email
         self.is_verified = true
+        self.validation_date = Time.now
         self.confirm_token = nil
     end
 

@@ -9,13 +9,26 @@
 </header>
     <section class="profil-section">
 
-        <% if @current_user.is_verified %>
+        <% if @current_user.accepted %>
+            <p>
+                Votre patience à payée ! Vous avez atuellement un accès à l'espace de Coworking.
+            </p>
+
+        <% elsif @current_user.expired %>
+            <p>
+                Oups, on dirait que vous n'avez pas répondu à notre email pour savoir si vous étiez toujours interréssé par une place...
+                <br/>
+                Votre demande à expirée, <%= link_to "la renouveller ?", "" %>
+            </p>
+
+        <% elsif @current_user.is_verified %>
             <p>
                 Il y a actuellement 
                 <span class="user-number"><%= @verified_users.length %></span>
                  utilisateurs dans la liste d'attente et vous êtes numéro 
                  <span class="user-number"><%= @position %></span>
              </p>
+             
         <% else %>
             <p>
                 Attention, votre demande à été prise en compte mais votre inscription est en attente de validation.

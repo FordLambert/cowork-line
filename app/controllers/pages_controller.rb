@@ -27,7 +27,7 @@ class PagesController < ApplicationController
         @user.is_verified = false
         
         if @user.save
-            UserMailer.welcome_email(@user).deliver!
+            #UserMailer.welcome_email(@user).deliver!
             session[:user_id] = @user.id
             redirect_to '/pages/show'
         else

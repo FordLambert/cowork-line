@@ -1,3 +1,92 @@
 // Place all the styles related to the pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$main-color: #1A3852;
+$orange: #E9602A;
+$warning-red: #f20212;
+$white: white;
+$black: black;
+
+body {
+
+    background-color: $main-color;
+
+    h1, h2 {
+        text-align: center;
+        color: $orange;
+        font-size: 2em;
+    }
+
+    p {
+        font-size: 1.2em;
+        color: $white;
+    }
+}
+
+header {
+    padding-top: 5vh;
+}
+
+.welcome-section {
+    margin-right: 15vw;
+    margin-left: 15vw;
+    margin-top: 10vh;
+
+    a {
+        text-decoration: none;
+        background-color: $orange;
+        border: 1px solid $black;
+        border-radius: 5px;
+        padding: 10px;
+        color: $white;
+        font-size: 1.3em;
+    }
+
+    a:hover {
+        background-color: $white;
+        color: $orange;
+    }
+
+    form {
+
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        input {
+            border: none;
+            padding: 2vh;
+            border-radius: 5%;
+            font-size: 1.1em;
+            width: 29%;
+        }
+
+        .login-button {
+            background-color: $orange;
+            border: 1px solid $black;
+            color: $white;
+        }
+
+        .login-button:hover {
+            background-color: $white;
+            color: $orange;
+        }
+    }
+
+    .inscription-button {
+        text-align: center;
+        margin-top: 8vh;
+        margin-bottom: 8vh;
+    }
+
+    .user-number {
+        color: $orange;
+    }
+
+    .login-error {
+        padding: 3vh;
+        color: $warning-red;
+        font-size: 1.2em;
+    }
+}

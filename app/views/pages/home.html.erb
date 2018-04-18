@@ -1,26 +1,34 @@
-<h1>Cowork-line</h1>
-<h2>Bienvenue dans la file d'attente du Cowork</h2>
+<header>
+    <h1>Cowork-line</h1>
+    <h2>Bienvenue dans la file d'attente du Cowork</h2>
+</header>
 
-<p><%= @users_number.length %> utilisateurs dans la liste d'attente</p>
+<section class="welcome-section">
+    <p>
+        Vous souhaitez louez un espace de travail chez Cowork ? 
+        <br/>
+        En raison du grand nombre de demandes, nous demandons désormais à tout
+        nouveau demandeur de s'inscrire sur notre liste d'attente
+    </p>
+    <p>
+        Il y a actuellement <span class="user-number"><%= @users_number.length %></span> utilisateurs dans la liste d'attente
+    </p>
 
+    <div class="inscription-button">
+        <%= link_to "Je m'inscris !", "/pages/create" %>
+    </div>
 
-<p>
-    Vous souhaitez louez un espace de travail chez Cowork ? 
-    <br/>
-    En raison du grand nombre de demandes, nous demandons désormais à tout
-    nouveau demandeur de s'inscrire sur notre liste d'attente
-</p>
+    <p>
+        Vous êtes déja inscris ?
+        Connectez vous ! :D
+    </p>
 
-<%= link_to "C'est par ici !", "/pages/create" %>
-
-<p>
-    Vous êtes déja inscris ?
-    Connectez vous ! :D
-</p>
-
-<%= flash[:info] %>
-<%= form_tag "/pages/login", method: :post do %>
-    <input type="text" name="email" placeholder="votre email">
-    <input type="password" name="password" placeholder="votre mot de passe">
-    <input type="submit" value="Se connecter">
-<% end %>
+    <div class="login-error">
+        <%= flash[:info] %>
+    </div>
+    <%= form_tag "/pages/login", method: :post do %>
+        <input type="text" name="email" placeholder="votre email">
+        <input type="password" name="password" placeholder="votre mot de passe">
+        <input type="submit" value="Se connecter" class="login-button">
+    <% end %>
+</section>

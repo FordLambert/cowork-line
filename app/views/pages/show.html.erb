@@ -1,14 +1,23 @@
 <% if !@current_user %>
-    <h1>Oups, on dirait que vous n'êtes pas connecté</h1>
+    <header>
+        <h1>Oups, on dirait que vous n'êtes pas connecté</h1>
+    </header>
 
 <% else %>
+<header>
     <h1>Bienvenue <%= @current_user.first_name %> :)</h1>
+</header>
+    <section class="profil-section">
 
-    <p><%= @users_number.length %> utilisateurs dans la liste d'attente</p>
+        <p>
+            Il y a actuellement 
+            <span class="user-number"><%= @users_number.length %></span>
+             utilisateurs dans la liste d'attente et vous êtes numéro 
+             <span class="user-number"><%= @users_before %></span>
+         </p>
 
-    <p>Vous êtes suuuuuper loin dans la liste ! dear gooood !</p>
-
-    <p>
-        <%= link_to "Se deconnecter", "/pages/disconnect" %>
-    </p>
+        <p>
+            <%= link_to "Se deconnecter", "/pages/disconnect" %>
+        </p>
+    </section>
 <% end %>

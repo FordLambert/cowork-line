@@ -6,34 +6,27 @@ class PagesController < ApplicationController
         end
     end
 
-    def create
-        if session[:user_id]
-            @current_user = User.find(session[:user_id])
-        end
-    end
-
     def show
         if session[:user_id]
             @current_user = User.find(session[:user_id])
         end
     end
 
-    def add_user
-        user = User.new
-        user.first_name = params[:first_name]
-        user.last_name = params[:last_name]
-        user.email = params[:email]
-        user.password = params[:password]
-        user.phone_number = params[:phone_number]
-        user.biography = params[:biography]
-        user.is_verified = false
+    def create
+        @user = User.new
+        @user.first_name = params[:first_name]
+        @user.last_name = params[:last_name]
+        @user.email = params[:email]
+        @user.password = params[:password]
+        @user.phone_number = params[:phone_number]
+        @user.biography = params[:biography]
+        @user.is_verified = false
         
-        if user.save
-            session[:user_id] = user.id
+        if @user.save
+            session[:user_id] = @user.id
             redirect_to '/pages/show'
         else
-            flash[:info] = user.errors.first
-            redirect_to "/pages/create"
+            render 'create'
         end
     end
 

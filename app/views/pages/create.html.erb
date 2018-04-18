@@ -15,14 +15,23 @@
 
     <%= form_tag "/pages/create", method: :post do %>
         <input type="text" name="first_name" placeholder="votre prénom">
-        <input type="text" name="last_name" placeholder="votre nom">
-        <input type="email" name="email" placeholder="votre adresse email">
+        <p><%= @user.errors[:first_name].first %></p>
 
-        <input type="password" name="password" placeholder="votre mot de passe"><!-- TODO: add double check for email -->
+        <input type="text" name="last_name" placeholder="votre nom">
+        <p><%= @user.errors[:last_name].first %></p>
+
+        <input type="email" name="email" placeholder="votre adresse email">
+        <p><%= @user.errors[:email].first %></p>
+
+        <input type="password" name="password" placeholder="votre mot de passe">
+        <p><%= @user.errors[:password].first %></p>
 
         <input type="text" name="phone_number" placeholder="Numéro de téléphone">
+        <p><%= @user.errors[:phone_number].first %></p>
+
         <textarea rows="5" name="biography" placeholder="Qui êtes vous en bref ?"></textarea>
-        <%= flash[:info] %>
+        <p><%= @user.errors[:biography].first %></p>
+
         <input type="submit" value="Créer le compte">
     <% end %>
 

@@ -54,7 +54,6 @@ class PagesController < ApplicationController
         @current_user = User.where(email: params[:email], password: params[:password]).first
         if @current_user
             session[:user_id] = @current_user.id
-            flash[:info] = "Content de vous voir #{@current_user.first_name} !"
             redirect_to "/pages/show"
         else
             flash[:info] = "Erreur d'adresse email ou de mot de passe"

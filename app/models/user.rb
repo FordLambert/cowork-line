@@ -8,4 +8,6 @@ class User < ActiveRecord::Base
 
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'
+
+    
 end

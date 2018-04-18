@@ -1,12 +1,16 @@
 class PagesController < ApplicationController
 
     def home
+        @users_number = User.where(is_verified: true)
+
         if session[:user_id]
             redirect_to '/pages/show'
         end
     end
 
     def show
+        @users_number = User.where(is_verified: true)
+
         if session[:user_id]
             @current_user = User.find(session[:user_id])
         end
@@ -23,6 +27,7 @@ class PagesController < ApplicationController
         @user.is_verified = false
         
         if @user.save
+            UserMailer.welcome_email(@user).deliver!
             session[:user_id] = @user.id
             redirect_to '/pages/show'
         else

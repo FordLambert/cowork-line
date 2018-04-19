@@ -9,7 +9,7 @@ class PagesController < ApplicationController
             @plural = false
         end
 
-        if session[:user_id]
+        if session[:user_id] 
             redirect_to '/pages/show'
         end
     end

@@ -6,17 +6,38 @@ class User < ActiveRecord::Base
     validates_presence_of   :last_name, :message => 'Merci d\'entrer votre nom.'
     validates_presence_of   :email, :message => 'Merci d\'entrer un email.'
     validates_presence_of   :password, :message => 'Merci de renseigner un mot de passe.'
-    validates_presence_of   :password, :message => 'Veuillez entrer à nouveau votre mot de passe.'
+    validates_presence_of   :password_confirmation, :message => 'Veuillez entrer à nouveau votre mot de passe.'
     validates_presence_of   :phone_number, :message => 'Merci d\'entrer un numéro de téléphone.'
     validates_presence_of   :biography, :message => 'Merci d\'entrer une brève biographie.'
 
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'
 
-    validates :password, confirmation: true
+    validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
 
     def accept!
         self.accepted = true;
+    end
+
+    def self.list 
+        puts "-----------"
+
+        User.all.each do |user|
+
+            if !user.is_verified
+                status = "En attente de validation"
+            elsif user.accepted
+                status = "Accepté"
+            elsif user.expired
+                status = "Non renouvellé"
+            else
+                status = "Dans la liste d'attente"
+            end
+                    
+            puts user.first_name + " " + user.last_name + ": " + user.email + " - " + status
+        end
+
+        puts "Fin de la liste"
     end
 
     def self.unconfirmed 
@@ -27,7 +48,7 @@ class User < ActiveRecord::Base
     end
 
     def self.confirmed
-        User.where(is_verified: false).each do |user|
+        User.where(is_verified: true).each do |user|
             puts user.first_name + " " + user.last_name + ": " + user.email
         end
         puts 'Fin de la liste'

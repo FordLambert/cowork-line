@@ -40,7 +40,7 @@ class PagesController < ApplicationController
     end
 
     def destroy
-        @user = User.find(session[:user_id]).destroy
+        User.find(params[:id]).destroy
         redirect_to root_path
     end
 

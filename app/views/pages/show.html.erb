@@ -53,7 +53,9 @@
 
         <% if @current_user %>
             <p class="dangerous-button">
-                <%= link_to "Supprimer votre compte", "destroy" %>
+                <%= form_tag "/pages/#{@current_user.id}", method: "delete" do %>
+                    <input type="submit" value="Supprimer le compte">
+                <% end %>   
             </p>
         <% end %>
     </section>

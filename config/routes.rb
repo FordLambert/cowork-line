@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
     get 'pages/resend', to: 'pages#resend_email'
 
-    get '/:token/confirm_email/', :to => "pages#confirm_email", as: 'confirm_email'
+    get 'pages/:token/confirm_email/', :to => "pages#confirm_email", as: 'confirm_email'
 
     post 'pages/create', to: 'pages#add_user'
     post 'pages/login', to: 'pages#login'

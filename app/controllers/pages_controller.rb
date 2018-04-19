@@ -76,13 +76,13 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        user = User.where(confirm_token: params[:token]).first
-        if user
-            user.validate_email
-            user.save(validate: false)
+        @user = User.where(confirm_token: params[:token]).first
+        if @user
+            @user.validate_email
+            @user.save(validate: false)
             UserReminderJob.set(wait: 3.month).perform_later(user)
             ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
-            session[:user_id] = user.id
+            session[:user_id] = @user.id
             redirect_to 'pages/show'
         else
             redirect_to root_url

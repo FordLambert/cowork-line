@@ -76,7 +76,7 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        user = User.find_by_confirm_token(params[:token])
+        user = User.where(confirm_token: params[:token]).first
         if user
             user.validate_email
             user.save(validate: false)

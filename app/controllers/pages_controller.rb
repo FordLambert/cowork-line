@@ -95,7 +95,7 @@ class PagesController < ApplicationController
             UserReminderJob.set(wait: 3.month).perform_later(@user)
             ExpireUserJob.set(wait: 3.month + 1.week).perform_later(@user)
             session[:user_id] = @user.id
-            redirect_to 'pages/show'
+            redirect_to '/pages/show'
         else
             redirect_to root_url
         end

@@ -28,7 +28,7 @@
                  utilisateurs dans la liste d'attente et vous êtes numéro 
                  <span class="user-number"><%= @position %></span>
              </p>
-             
+
         <% else %>
             <p>
                 Attention, votre demande à été prise en compte mais votre inscription est en attente de validation.
@@ -46,6 +46,7 @@
 
         <p>
             <%= link_to "Se deconnecter", "/pages/disconnect" %>
+            <%= link_to "Renvoyer l'email", "resend" %>
         </p>
     </section>
 <% end %>

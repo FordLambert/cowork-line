@@ -50,7 +50,7 @@ class PagesController < ApplicationController
         @user.is_verified = false
         
         if @user.save
-            #UserMailer.welcome_email(@user).deliver!
+            UserMailer.welcome_email(@user).deliver!
 
             session[:user_id] = @user.id
             redirect_to '/pages/show'
@@ -59,9 +59,15 @@ class PagesController < ApplicationController
         end
     end
 
+    def resend_email
+        @user = User.find(session[:user_id])
+        UserMailer.welcome_email(@user).deliver!
+    end
+
     def success
         if session[:user_id]
             @current_user = session[:user_id]
+            render 'show'
         end
     end
 

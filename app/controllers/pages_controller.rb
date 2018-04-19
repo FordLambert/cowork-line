@@ -48,6 +48,8 @@ class PagesController < ApplicationController
         @user.phone_number = params[:phone_number]
         @user.biography = params[:biography]
         @user.is_verified = false
+        @user.accepted = false
+        @user.expired = false
         
         if @user.save
             UserMailer.welcome_email(@user).deliver!

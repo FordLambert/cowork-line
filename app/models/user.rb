@@ -72,8 +72,6 @@ class User < ActiveRecord::Base
         end
         puts 'Fin de la liste'
     end
-
-    private
     
     def validate_email
         self.is_verified = true

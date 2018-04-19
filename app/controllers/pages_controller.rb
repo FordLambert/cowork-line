@@ -66,6 +66,8 @@ class PagesController < ApplicationController
     def resend_email
         @user = User.find(session[:user_id])
         UserMailer.welcome_email(@user).deliver!
+        flash[:info] = "Nouvel email de validation envoyé"
+        redirect_to 'show'
     end
 
     def success

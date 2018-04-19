@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     root 'pages#home'
 
     get 'pages/create', to: 'pages#create'
-    get 'pages/destroy', to: 'pages#destroy'
+    get 'destroy', to: 'pages#destroy'
     get 'pages/success', to: 'pages#success'
     get 'pages/show', to: 'pages#show', as: 'utilisateur'
     get 'pages/disconnect', to: 'pages#disconnect'

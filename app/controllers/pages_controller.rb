@@ -78,7 +78,11 @@ class PagesController < ApplicationController
     def confirm_email
         @user = User.where(confirm_token: params[:token]).first
         if @user
-            @user.validate_email
+
+            @user.is_verified = true
+            @user.validation_date = Time.now
+            @user.confirm_token = nil
+            
             @user.save(validate: false)
             UserReminderJob.set(wait: 3.month).perform_later(user)
             ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)

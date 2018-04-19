@@ -82,10 +82,10 @@ class PagesController < ApplicationController
             @user.is_verified = true
             @user.validation_date = Time.now
             @user.confirm_token = nil
-            
+
             @user.save(validate: false)
-            UserReminderJob.set(wait: 3.month).perform_later(user)
-            ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
+            UserReminderJob.set(wait: 3.month).perform_later(@user)
+            ExpireUserJob.set(wait: 3.month + 1.week).perform_later(@user)
             session[:user_id] = @user.id
             redirect_to 'pages/show'
         else

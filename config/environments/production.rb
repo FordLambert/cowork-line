@@ -5,8 +5,8 @@ config.action_mailer.smtp_settings = {
   address:              'smtp.gmail.com',
   port:                 587,
   domain:               'www.cowork-line_.herokuapp.com',
-  user_name:            GMAIL_USERNAME,
-  password:             GMAIL_PASSWORD,
+  user_name:            ENV['GMAIL_USERNAME'],
+  password:             ENV['GMAIL_PASSWORD'],
   authentication:       'plain',
   enable_starttls_auto: true }
 

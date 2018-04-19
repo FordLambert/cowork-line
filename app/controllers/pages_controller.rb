@@ -50,9 +50,10 @@ class PagesController < ApplicationController
         @user.is_verified = false
         
         if @user.save
-            UserMailer.welcome_email(@user).deliver!
+            #UserMailer.welcome_email(@user).deliver!
 
             session[:user_id] = @user.id
+
             redirect_to '/pages/show'
         else
             render 'create'
@@ -86,8 +87,27 @@ class PagesController < ApplicationController
         user = User.find(params[:id])
         user.is_verified = true
         user.validation_date = Time.now
+        UserReminderJob.set(wait: 3.month).perform_later(user)
+        ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
         session[:user_id] = user.id
         redirect_to "pages/success"
+    end
+
+    def confirm_user
+        #I don't like the following loop at all but for now I don't know how to enchance it
+        ExpireUserJob.all.each do |job|
+            job_user = job.return_concerned_user
+
+            if job_user == user
+                job.destroy
+                break
+            end
+        end
+
+        UserReminderJob.set(wait: 3.month).perform_later(user)
+        ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
+        session[:user_id] = user.id
+        redirect_to "pages/something to say it's back on track"
     end
 
     def login
@@ -109,8 +129,8 @@ class PagesController < ApplicationController
     private
 
     def get_current_user
-        if session[:id]
-            @current_user = User.find(session[:id])
+        if session[:user_id]
+            @current_user = User.find(session[:user_id])
         end
     end
 end

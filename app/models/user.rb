@@ -16,7 +16,12 @@ class User < ActiveRecord::Base
     #validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
 
     def accept!
-        self.accepted = true;
+        self.accepted = true
+        self.expired = false
+    end
+
+    def cancel_expire
+
     end
 
     def self.list 

@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
 
+    before_action :get_current_user, only: [:home, :show]
+
     def home
         @verified_users = User.where(is_verified: true)
 
@@ -9,7 +11,7 @@ class PagesController < ApplicationController
             @plural = false
         end
 
-        if session[:user_id] 
+        if @current_user 
             redirect_to '/pages/show'
         end
     end
@@ -23,9 +25,7 @@ class PagesController < ApplicationController
             @plural = false
         end
 
-        if session[:user_id]
-            @current_user = User.find(session[:user_id])
-
+        if @current_user
             if @current_user.is_verified
                 sorted_users = @verified_users.sort_by &:validation_date
                 @position = sorted_users.find_index(@current_user) + 1
@@ -104,5 +104,13 @@ class PagesController < ApplicationController
     def disconnect
         session[:user_id] = nil
         redirect_to root_path
+    end
+
+    private
+
+    def get_current_user
+        if session[:id]
+            @current_user = User.find(session[:id])
+        end
     end
 end

@@ -39,6 +39,11 @@ class PagesController < ApplicationController
         end
     end
 
+    def destroy
+        @user = User.find(session[:user_id]).destroy
+        redirect_to root_path
+    end
+
     def add_user
         @user = User.new
         @user.first_name = params[:first_name]

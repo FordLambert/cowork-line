@@ -38,7 +38,7 @@
             </p>
             <p>Vous n'avez pas reçu l'email ? <%= link_to "Le renvoyer", "resend" %></p>
             <%= flash[:info] %>
-            
+
             <p>
                 <span class="user-number">
                     <%= @verified_users.length %>    
@@ -50,5 +50,11 @@
         <p>
             <%= link_to "Se deconnecter", "/pages/disconnect" %>
         </p>
+
+        <% if @current_user %>
+            <p class="dangerous-button">
+                <%= link_to "Supprimer votre compte", "/pages/destroy" %>
+            </p>
+        <% end %>
     </section>
 <% end %>

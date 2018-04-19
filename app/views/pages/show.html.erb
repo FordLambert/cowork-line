@@ -36,6 +36,7 @@
                 Un email vous à été envoyé, merci de cliquer sur le lien présent dans celui-ci pour finaliser votre inscription.
                 Tant que votre email n'a pas été validé <span class="warning">vous n'êtes pas pris en compte dans la liste d'attente.</span>
             </p>
+            <p>Vous n'avez pas reçu l'email ? <%= link_to "Le renvoyer", "resend" %></p>
             <p>
                 <span class="user-number">
                     <%= @verified_users.length %>    
@@ -46,7 +47,6 @@
 
         <p>
             <%= link_to "Se deconnecter", "/pages/disconnect" %>
-            <%= link_to "Renvoyer l'email", "resend" %>
         </p>
     </section>
 <% end %>

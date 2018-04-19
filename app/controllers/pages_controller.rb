@@ -52,6 +52,7 @@ class PagesController < ApplicationController
         @user.expired = false
         
         if @user.save
+            @user.set_confirmation_token
             UserMailer.welcome_email(@user).deliver!
 
             session[:user_id] = @user.id
@@ -79,20 +80,13 @@ class PagesController < ApplicationController
         if user
             user.validate_email
             user.save(validate: false)
-            redirect_to user
+            UserReminderJob.set(wait: 3.month).perform_later(user)
+            ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
+            session[:user_id] = user.id
+            redirect_to 'pages/show'
         else
             redirect_to root_url
         end
-    end
-
-    def validate_user
-        user = User.find(params[:id])
-        user.is_verified = true
-        user.validation_date = Time.now
-        UserReminderJob.set(wait: 3.month).perform_later(user)
-        ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
-        session[:user_id] = user.id
-        redirect_to "pages/success"
     end
 
     def confirm_user

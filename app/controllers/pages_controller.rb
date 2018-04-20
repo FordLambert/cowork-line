@@ -116,7 +116,7 @@ class PagesController < ApplicationController
 
     def login
         if User.exists?(email: params[:email])
-            @current_user = User.where(email: params[:email])
+            @current_user = User.where(email: params[:email]).first
 
             if @current_user.password == params[:password]
                 session[:user_id] = @current_user.id

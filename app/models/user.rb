@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
     validates_presence_of   :phone_number, :message => 'Merci d\'entrer un numéro de téléphone.'
     validates_presence_of   :biography, :message => 'Merci d\'entrer une brève biographie.'
 
-    validates :email, email: true
+    #validates :email, email: true
 
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'

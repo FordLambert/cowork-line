@@ -50,7 +50,7 @@ class PagesController < ApplicationController
         @user.first_name = params[:first_name]
         @user.last_name = params[:last_name]
         @user.email = params[:email]
-        @user.password = params[:password]
+        @user.password_hash = params[:password]
         @user.phone_number = params[:phone_number]
         @user.biography = params[:biography]
         @user.is_verified = false

@@ -28,12 +28,12 @@ class User < ActiveRecord::Base
 
     # Bccrypt password methods
     def password
-        @password ||= Password.new(password_hash)
+        @password ||= Password.new(password)
     end
 
     def password=(new_password)
         @password = Password.create(new_password)
-        self.password_hash = @password
+        self.password = @password
     end
 
     # User methods

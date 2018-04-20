@@ -119,8 +119,9 @@ class PagesController < ApplicationController
     end
 
     def login
-        @current_user = User.where(email: params[:email], password: params[:password]).first
-        if @current_user
+        @current_user = User.find_by_email(params[:email])
+
+        if @current_user.password == params[:password]
             session[:user_id] = @current_user.id
             redirect_to "/pages/show"
         else

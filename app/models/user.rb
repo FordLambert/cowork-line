@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
+    
     include EmailValidatable
+    require 'bcrypt'
 
     before_create :set_confirmation_token
 
@@ -21,6 +23,18 @@ class User < ActiveRecord::Base
 
     #validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
 
+    # Bccrypt password methods
+    def password
+        @password ||= Password.new(password_hash)
+    end
+
+    def password=(new_password)
+        @password = Password.create(new_password)
+        self.password_hash = @password
+    end
+
+    # User methods
+
     def accept!
         self.accepted = true
         self.expired = false
@@ -29,6 +43,20 @@ class User < ActiveRecord::Base
     def cancel_expire
 
     end
+
+    def validate_email
+        self.is_verified = true
+        self.validation_date = Time.now
+        self.confirm_token = nil
+    end
+
+    def set_confirmation_token
+        if self.confirm_token.blank?
+            self.confirm_token = SecureRandom.urlsafe_base64.to_s
+        end
+    end
+
+    # Users methods
 
     def self.list 
         puts "-----------"
@@ -77,17 +105,5 @@ class User < ActiveRecord::Base
             puts user.first_name + " " + user.last_name + ": " + user.email
         end
         puts 'Fin de la liste'
-    end
-    
-    def validate_email
-        self.is_verified = true
-        self.validation_date = Time.now
-        self.confirm_token = nil
-    end
-
-    def set_confirmation_token
-        if self.confirm_token.blank?
-            self.confirm_token = SecureRandom.urlsafe_base64.to_s
-        end
     end
 end

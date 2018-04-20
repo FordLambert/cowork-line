@@ -84,13 +84,12 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        @user = User.where(confirm_token: params[:token] || id: params[:token]))
+        @user = User.where(confirm_token: params[:token])
         if @user
 
             if @user.validation_date = nil
                 @user.is_verified = true
                 @user.validation_date = Time.now
-                @user.confirm_token = nil
             else 
                 #I don't like the following loop at all but for now I don't know how to enchance it
                 ExpireUserJob.all.each do |job|

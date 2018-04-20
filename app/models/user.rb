@@ -1,11 +1,7 @@
 require 'mail'
-require 'bcrypt'
 
 class User < ActiveRecord::Base
     include EmailValidatable
-    include BCrypt
-
-    attr_reader :password_hash
 
     before_create :set_confirmation_token
 
@@ -26,16 +22,6 @@ class User < ActiveRecord::Base
     too_short: "Le mot de passe doit contenir au moins 8 caractères" }
 
     #validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
-
-    # Bccrypt password methods
-    def password
-        @password ||= Password.new(password_hash)
-    end
-
-    def password=(new_password)
-        @password = Password.create(new_password)
-        self.password_hash = @password
-    end
 
     # User methods
 

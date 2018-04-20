@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+    include EmailValidatable
 
     before_create :set_confirmation_token
 
@@ -10,8 +11,13 @@ class User < ActiveRecord::Base
     validates_presence_of   :phone_number, :message => 'Merci d\'entrer un numéro de téléphone.'
     validates_presence_of   :biography, :message => 'Merci d\'entrer une brève biographie.'
 
+    validates :email, email: true
+
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'
+
+    validates :bio, length: { minimum: 8,
+    too_short: "Le mot de passe doit contenir au moins 8 caractères" }
 
     #validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
 

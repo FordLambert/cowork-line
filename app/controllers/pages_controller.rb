@@ -84,7 +84,7 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        @user = User.where(confirm_token: params[:token])
+        @user = User.where(confirm_token: params[:token]).first
         if @user
 
             if !@user.is_verified
@@ -108,6 +108,7 @@ class PagesController < ApplicationController
             session[:user_id] = @user.id
             flash[:info] = "Votre présence dans la liste à bien été confirmée"
             redirect_to '/pages/show'
+
         else
             redirect_to root_url
         end

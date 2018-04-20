@@ -28,7 +28,7 @@
                  utilisateurs dans la liste d'attente et vous êtes numéro 
                  <span class="user-number"><%= @position %></span>
              </p>
-             <p><%= flash[:info] %></p>
+             <p class="info"><%= flash[:info] %></p>
 
         <% else %>
             <p>
@@ -38,7 +38,7 @@
                 Tant que votre email n'a pas été validé <span class="warning">vous n'êtes pas pris en compte dans la liste d'attente.</span>
             </p>
             <p>Vous n'avez pas reçu l'email ? <%= link_to "Le renvoyer", "resend" %></p>
-            <%= flash[:info] %>
+            <p class="info"><%= flash[:info] %></p>
 
             <p>
                 <span class="user-number">

@@ -1,4 +1,4 @@
-require 'bcrypt'
+require 'bcrypt-ruby'
 
 class User < ActiveRecord::Base
     

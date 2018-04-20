@@ -1,6 +1,10 @@
 <% if @current_user %>
-    <p>Vous êtes déja connectés en tant que <%= @current_user.first_name %></p>
-    <p>Ce n'est pas vous ? <%= link_to "Se deconnecter", "/pages/disconnect" %></p>
+    <p>
+        Vous êtes déja connectés en tant que <%= @current_user.first_name %>
+    </p>
+    <p>
+        Ce n'est pas vous ? <%= link_to "Se deconnecter", "/pages/disconnect" %>
+    </p>
 
 <% else %>
     <header>
@@ -68,6 +72,7 @@
                 <input type="submit" value="Créer le compte" class="submit-button">
             </div>
         <% end %>
+        
     </section>
 
 <% end %>

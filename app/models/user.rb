@@ -1,5 +1,3 @@
-require 'mail'
-
 class User < ActiveRecord::Base
     include EmailValidatable
 
@@ -9,11 +7,8 @@ class User < ActiveRecord::Base
     validates_presence_of   :last_name, :message => 'Merci d\'entrer votre nom.'
     validates_presence_of   :email, :message => 'Merci d\'entrer un email.'
     validates_presence_of   :password, :message => 'Merci de renseigner un mot de passe.'
-    #validates_presence_of   :password_confirmation, :message => 'Veuillez entrer à nouveau votre mot de passe.'
     validates_presence_of   :phone_number, :message => 'Merci d\'entrer un numéro de téléphone.'
     validates_presence_of   :biography, :message => 'Merci d\'entrer une brève biographie.'
-
-    #validates :email, email: true
 
     validates_uniqueness_of :email, :message => 'Cet email est déja utilisé'
     validates_uniqueness_of :phone_number, :message => 'Ce numéro est déja utilisé'
@@ -21,17 +16,11 @@ class User < ActiveRecord::Base
     validates :password, length: { minimum: 8,
     too_short: "Le mot de passe doit contenir au moins 8 caractères" }
 
-    #validates_confirmation_of :password, message: 'La confirmation de mot de passe ne correspond pas'
-
     # User methods
 
     def accept!
         self.accepted = true
         self.expired = false
-    end
-
-    def cancel_expire
-
     end
 
     def validate_email

@@ -4,9 +4,10 @@
     </header>
 
 <% else %>
-<header>
-    <h1>Bienvenue <%= @current_user.first_name %> :)</h1>
-</header>
+    <header>
+        <h1>Bienvenue <%= @current_user.first_name %> :)</h1>
+    </header>
+
     <section class="profil-section">
 
         <% if @current_user.accepted %>
@@ -37,8 +38,12 @@
                 Un email vous à été envoyé, merci de cliquer sur le lien présent dans celui-ci pour finaliser votre inscription.
                 Tant que votre email n'a pas été validé <span class="warning">vous n'êtes pas pris en compte dans la liste d'attente.</span>
             </p>
-            <p>Vous n'avez pas reçu l'email ? <%= link_to "Le renvoyer", "resend" %></p>
-            <p class="info"><%= flash[:info] %></p>
+            <p>
+                Vous n'avez pas reçu l'email ? <%= link_to "Le renvoyer", "resend" %>
+            </p>
+            <p class="info">
+                <%= flash[:info] %>
+            </p>
 
             <p>
                 <span class="user-number">
@@ -59,5 +64,7 @@
                 <% end %>   
             </p>
         <% end %>
+
     </section>
+    
 <% end %>

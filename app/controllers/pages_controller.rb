@@ -1,30 +1,15 @@
 class PagesController < ApplicationController
 
     before_action :get_current_user, only: [:home, :show]
+    before_action :define_plural, only: [:home, :show]
 
     def home
-        @verified_users = User.where(is_verified: true)
-
-        if @verified_users.length > 1
-            @plural = true
-        else
-            @plural = false
-        end
-
         if @current_user 
             redirect_to '/pages/show'
         end
     end
 
     def show
-        @verified_users = User.where(is_verified: true)
-
-        if @verified_users.length > 1
-            @plural = true
-        else
-            @plural = false
-        end
-
         if @current_user
             if @current_user.is_verified
                 sorted_users = @verified_users.sort_by &:validation_date
@@ -91,7 +76,8 @@ class PagesController < ApplicationController
                 @user.is_verified = true
                 @user.validation_date = Time.now
             else 
-                #I don't like the following loop at all but for now I don't know how to enchance it
+                #I don't like the following loop at all but for now 
+                #I don't know how to enchance it
                 ExpireUserJob.all.each do |job|
                     job_user = job.return_concerned_user
 
@@ -143,6 +129,16 @@ class PagesController < ApplicationController
             @current_user = User.find(session[:user_id])
         else 
             session[:user_id] = nil
+        end
+    end
+
+    def define_plural
+        @verified_users = User.where(is_verified: true)
+
+        if @verified_users.length > 1
+            @plural = true
+        else
+            @plural = false
         end
     end
 end

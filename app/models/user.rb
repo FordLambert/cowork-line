@@ -1,9 +1,10 @@
 require 'bcrypt'
 
 class User < ActiveRecord::Base
-    
     include EmailValidatable
     include BCrypt
+
+    attr_reader :password_hash
 
     before_create :set_confirmation_token
 

@@ -87,7 +87,7 @@ class PagesController < ApplicationController
         @user = User.where(confirm_token: params[:token])
         if @user
 
-            if @user.validation_date = nil
+            if !@user.is_verified
                 @user.is_verified = true
                 @user.validation_date = Time.now
             else 

@@ -102,11 +102,14 @@ class PagesController < ApplicationController
     end
 
     def confirm_user
+
+        @user = user.find(params[:id])
+
         #I don't like the following loop at all but for now I don't know how to enchance it
         ExpireUserJob.all.each do |job|
             job_user = job.return_concerned_user
 
-            if job_user == user
+            if job_user == @user
                 job.destroy
                 break
             end
@@ -114,8 +117,9 @@ class PagesController < ApplicationController
 
         UserReminderJob.set(wait: 3.month).perform_later(user)
         ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
-        session[:user_id] = user.id
-        redirect_to "pages/something to say it's back on track"
+        session[:user_id] = @user.id
+        flash[:info] = "Votre présence dans la liste à bien été confirmée"
+        redirect_to "pages/show"
     end
 
     def login

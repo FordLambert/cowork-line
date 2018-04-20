@@ -3,7 +3,7 @@ class UserReminderJob < ApplicationJob
 
   def perform(user)
     if !user.accepted
-        #send an email to remind user
+        UserMailer.welcome_email(user).deliver!
     end
   end
 end

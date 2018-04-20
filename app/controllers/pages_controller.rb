@@ -103,7 +103,7 @@ class PagesController < ApplicationController
 
     def confirm_user
 
-        @user = user.find(params[:id])
+        @user = User.find(params[:id])
 
         #I don't like the following loop at all but for now I don't know how to enchance it
         ExpireUserJob.all.each do |job|

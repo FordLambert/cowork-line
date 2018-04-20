@@ -84,7 +84,7 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        @user = User.where(confirm_token: params[:token]) || User.find(params[:token])
+        @user = User.where(confirm_token: params[:token] || id: params[:token]))
         if @user
 
             if @user.validation_date = nil

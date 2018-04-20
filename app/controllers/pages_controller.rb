@@ -115,13 +115,18 @@ class PagesController < ApplicationController
     end
 
     def login
-        @current_user = User.find_by_email(params[:email])
+        if User.exists?(email: params[:email])
+            @current_user = User.where(email: params[:email])
 
-        if @current_user.password == params[:password]
-            session[:user_id] = @current_user.id
-            redirect_to "/pages/show"
+            if @current_user.password == params[:password]
+                session[:user_id] = @current_user.id
+                redirect_to "/pages/show"
+            else
+                flash[:info] = "Erreur de mot de passe"
+                redirect_to root_path
+            end
         else
-            flash[:info] = "Erreur d'adresse email ou de mot de passe"
+            flash[:info] = "Erreur d'email"
             redirect_to root_path
         end
     end
@@ -134,8 +139,10 @@ class PagesController < ApplicationController
     private
 
     def get_current_user
-        if session[:user_id]
+        if User.exists?(session[:user_id])
             @current_user = User.find(session[:user_id])
+        else 
+            session[:user_id] = nil
         end
     end
 end

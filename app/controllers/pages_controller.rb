@@ -73,7 +73,7 @@ class PagesController < ApplicationController
         @user = User.find(session[:user_id])
         UserMailer.welcome_email(@user).deliver!
         flash[:info] = "Nouvel email de validation envoyé"
-        redirect_to 'show'
+        redirect_to '/pages/show'
     end
 
     def success
@@ -84,42 +84,34 @@ class PagesController < ApplicationController
     end
 
     def confirm_email
-        @user = User.where(confirm_token: params[:token]).first
+        @user = User.where(confirm_token: params[:token]) || User.find(params[:token])
         if @user
 
-            @user.is_verified = true
-            @user.validation_date = Time.now
-            @user.confirm_token = nil
+            if @user.validation_date = nil
+                @user.is_verified = true
+                @user.validation_date = Time.now
+                @user.confirm_token = nil
+            else 
+                #I don't like the following loop at all but for now I don't know how to enchance it
+                ExpireUserJob.all.each do |job|
+                    job_user = job.return_concerned_user
+
+                    if job_user == @user
+                        job.destroy
+                        break
+                    end
+                end
+            end
 
             @user.save(validate: false)
             UserReminderJob.set(wait: 3.month).perform_later(@user)
             ExpireUserJob.set(wait: 3.month + 1.week).perform_later(@user)
             session[:user_id] = @user.id
+            flash[:info] = "Votre présence dans la liste à bien été confirmée"
             redirect_to '/pages/show'
         else
             redirect_to root_url
         end
-    end
-
-    def confirm_user
-
-        @user = User.find(params[:id])
-
-        #I don't like the following loop at all but for now I don't know how to enchance it
-        ExpireUserJob.all.each do |job|
-            job_user = job.return_concerned_user
-
-            if job_user == @user
-                job.destroy
-                break
-            end
-        end
-
-        UserReminderJob.set(wait: 3.month).perform_later(user)
-        ExpireUserJob.set(wait: 3.month + 1.week).perform_later(user)
-        session[:user_id] = @user.id
-        flash[:info] = "Votre présence dans la liste à bien été confirmée"
-        redirect_to "pages/show"
     end
 
     def login

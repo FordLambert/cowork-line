@@ -1,8 +1,9 @@
-require 'bcrypt-ruby'
+require 'bcrypt'
 
 class User < ActiveRecord::Base
     
     include EmailValidatable
+    include BCrypt
 
     before_create :set_confirmation_token
 
